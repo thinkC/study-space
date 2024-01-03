@@ -11,21 +11,8 @@ router = APIRouter(
 
 # User route
 
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Create_User_Reponse)
-def create_user(user: schemas.Create_User, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
-
-    # hash password
-    hashed_password = utils.hash(user.password)
-    user.password = hashed_password
-    new_user = models.User(**user.dict())
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
-    return new_user
-
-
 # @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Create_User_Reponse)
-# def create_user(user: schemas.Create_User, db: Session = Depends(get_db)):
+# def create_user(user: schemas.Create_User, db: Session = Depends(get_db), current_user: int = Depends(oauth2.get_current_user)):
 
 #     # hash password
 #     hashed_password = utils.hash(user.password)
@@ -35,6 +22,19 @@ def create_user(user: schemas.Create_User, db: Session = Depends(get_db), curren
 #     db.commit()
 #     db.refresh(new_user)
 #     return new_user
+
+
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.Create_User_Reponse)
+def create_user(user: schemas.Create_User, db: Session = Depends(get_db)):
+
+    # hash password
+    hashed_password = utils.hash(user.password)
+    user.password = hashed_password
+    new_user = models.User(**user.dict())
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
 
 
 @router.get("/{id}", response_model=schemas.Create_User_Reponse)
