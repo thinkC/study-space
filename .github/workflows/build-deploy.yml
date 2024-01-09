@@ -72,21 +72,21 @@ jobs:
     environment:
       name: production
     steps:
-      - name: pulling from github
-        uses: actions/checkout@v4
-      - name: deploying to heroku
-        uses: akhileshns/heroku-deploy@v3.13.15 
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-          heroku_email: ${{secrets.HEROKU_EMAIL}}
+      # - name: pulling from github
+      #   uses: actions/checkout@v4
+      # - name: deploying to heroku
+      #   uses: akhileshns/heroku-deploy@v3.13.15 
+      #   with:
+      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+      #     heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+      #     heroku_email: ${{secrets.HEROKU_EMAIL}}
       - name: deploy to ubuntu server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.PROD_HOST }}
-          username: ${{ secrets.PROD_USERNAME }}
-          password: ${{ secrets.PROD_PASSWORD }}
+          username: ${{secrets.PROD_USERNAME}}
+          password: ${{secrets.PROD_PASSWORD}}
           script: |
             cd app/src
             git pull
-            echo ${{ secrets.PROD_PASSWORD }} | sudo -S systemctl restart study-space-api
+            echo ${{secrets.PROD_PASSWORD}} | sudo -S systemctl restart study-space-api

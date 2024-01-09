@@ -20,4 +20,4 @@ app.include_router(auth.router)
 
 @app.get("/")
 def root():
-    return {"message": "Hello Library! on heroku with CI/CD"}
+    return {"message": "Hello Library! on digital ocean on ubuntu with CI/CD"}
