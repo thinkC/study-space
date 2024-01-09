@@ -30,8 +30,8 @@ jobs:
           --health-retries 5
     runs-on: ubuntu-latest
     steps:
-      # - name: pulling github repo
-      #   uses: actions/checkout@v4
+      - name: pulling github repo
+        uses: actions/checkout@v4
       # - name: say hello github actions
       #   run: echo "hello github actions"
       # - name: setup python
@@ -65,6 +65,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
+          file: .Dockerfile
           push: true
           tags: ${{secrets.DOCKERHUB_USERNAME}}/study-space1:latest
           cache-from: type=registry,ref=${{secrets.DOCKERHUB_USERNAME}}/study-space1:latest
